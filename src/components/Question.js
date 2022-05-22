@@ -1,68 +1,64 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { decode } from "html-entities";
 
-const Question = ({question , handleNext , selected , handleAnswer})=> {
+const Question = ({ question, handleNext, selected, handleAnswer }) => {
+  const [options, setOptions] = useState([]); //holds the current options
+  const navigate = useNavigate();
 
-    const [options , setOptions] = useState([]); //holds the current options
-    const navigate = useNavigate();
-
-
-    useEffect( ()=> {
-        if(question)
-        {
-            handleOption();
-        }
-        
-    }, [question]);
-
-
-    //handles the selected option colors
-    const handleSelect = (option) =>  {
-       if (option == question.correct_answer  )
-          return "btn btn-success btn-lg w-100"
-       else if(selected == option && selected !== question.correct_answer)
-          return "btn btn-danger btn-lg w-100"
-       else 
-          return "btn btn-primary btn-lg w-100"  
+  useEffect(() => {
+    if (question) {
+      handleOption();
     }
+  }, [question]);
 
-    //Makes the options random  
-    const handleOption = ()=> {
-        let optionTemp = [question.correct_answer , ...question.incorrect_answers];
-        setOptions(optionTemp.sort( () => Math.random() - 0.5));  
-    }
+  //handles the selected option colors
+  const handleSelect = (option) => {
+    if (option == question.correct_answer) return "btn btn-success btn-lg w-100";
+    else if (selected == option && selected !== question.correct_answer)
+      return "btn btn-danger btn-lg w-100";
+    else return "btn btn-primary btn-lg w-100";
+  };
 
-    //handle Quiz functionality
-    const handleQuit =() => {
-        navigate('/');
-    }
+  //Makes the options random
+  const handleOption = () => {
+    let optionTemp = [question.correct_answer, ...question.incorrect_answers];
+    setOptions(optionTemp.sort(() => Math.random() - 0.5));
+  };
 
-    return(
-        <>
-            <p className="lead my-4 pt-0">{question && question.question}</p> 
-            <div>
-             {
-                options &&
-                options.map ((option , next)=> 
-                       <div key={next} className="mt-3 w-100 border">
-                            <button   
-                            onClick = {(e)=>handleAnswer(e)} 
-                            name={option} 
-                            className={ selected ? handleSelect(option) :"btn btn-primary btn-lg w-100" } > 
-                            {option}
-                            </button>
-                       </div>
-                     
-                )
-             }
-             </div>
+  //handle Quiz functionality
+  const handleQuit = () => {
+    navigate("/");
+  };
 
-            <div className="d-flex justify-content-between">
-               <button className="btn btn-danger m-2 btn-lg" onClick={handleQuit}>Quit</button>  
-               <button className="btn btn-success m-2 btn-lg" onClick={handleNext}>Next</button>   
+  return (
+    <>
+      <p className="lead my-4 pt-0">{question && decode(question.question)}</p>
+      <div>
+        {options &&
+          options.map((option, next) => (
+            <div key={next} className="mt-3 w-100 border">
+              <button
+                onClick={(e) => handleAnswer(e)}
+                name={option}
+                className={selected ? handleSelect(option) : "btn btn-primary btn-lg w-100"}
+              >
+                {decode(option)}
+              </button>
             </div>
-        </>
-    );
-}
+          ))}
+      </div>
+
+      <div className="d-flex justify-content-between">
+        <button className="btn btn-danger m-2 btn-lg" onClick={handleQuit}>
+          Quit
+        </button>
+        <button className="btn btn-success m-2 btn-lg" onClick={handleNext}>
+          Next
+        </button>
+      </div>
+    </>
+  );
+};
 
 export default Question;
