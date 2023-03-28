@@ -24,7 +24,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="bg-dark pt-5">
       {questions.length === 0 ? (
         <div className="bg-dark d-flex justify-content-center vh-100">
           <div>

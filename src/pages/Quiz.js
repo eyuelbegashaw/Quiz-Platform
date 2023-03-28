@@ -13,7 +13,7 @@ const Quiz = ({questions, setQuestions}) => {
   const handleNext = () => {
     if (selected) {
       setSelected("");
-      if (current == questions.length - 1) {
+      if (current === questions.length - 1) {
         setGameOver(true);
       } else {
         setCurrent(current + 1);
@@ -26,7 +26,7 @@ const Quiz = ({questions, setQuestions}) => {
   const handleAnswer = e => {
     if (!selected) {
       setSelected(e.target.name);
-      if (e.target.name == questions[current].correct_answer) {
+      if (e.target.name === questions[current].correct_answer) {
         setScore(score + 1);
       }
     }

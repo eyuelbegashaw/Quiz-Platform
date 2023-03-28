@@ -16,8 +16,8 @@ const Question = ({question, handleNext, selected, handleAnswer, setQuestions}) 
   }, [question]);
 
   const handleSelect = option => {
-    if (option == question.correct_answer) return "btn btn-success btn-lg w-100";
-    else if (selected == option && selected !== question.correct_answer)
+    if (option === question.correct_answer) return "btn btn-success btn-lg w-100";
+    else if (selected === option && selected !== question.correct_answer)
       return "btn btn-danger btn-lg w-100";
     else return "btn btn-primary btn-lg w-100";
   };
