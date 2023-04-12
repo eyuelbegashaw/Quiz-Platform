@@ -1,3 +1,17 @@
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+#parentDiv {
+  width: 450px;
+}
+
+.theme {
+  color: rgb(160, 170, 12);
+}
+
+@media (max-width: 450px) {
+  .parentDiv {
+    width: 300px;
+  }
+}

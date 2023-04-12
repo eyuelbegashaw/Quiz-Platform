@@ -1,8 +1,7 @@
 import {useState} from "react";
-import Question from "../components/Question";
+import {toast} from "react-toastify";
 
-import "react-toastify/dist/ReactToastify.css";
-import {ToastContainer, toast} from "react-toastify";
+import Question from "../components/Question";
 
 const Quiz = ({questions, setQuestions}) => {
   const [score, setScore] = useState(0);
@@ -34,18 +33,18 @@ const Quiz = ({questions, setQuestions}) => {
 
   return (
     <>
-      <ToastContainer />
       {gameOver && (
-        <div className="bg-dark text-warning fs-4 p-2 text-center m-0">
-          Quiz Completed <br />
-          <button className="btn btn-primary mt-2" onClick={() => setQuestions([])}>
-            Play Again
-          </button>
+        <div className="bg-dark text-warning fs-4 m-0 d-flex justify-content-center">
+          <div>Quiz Completed</div>
+          <div>
+            <button className="btn btn-primary ms-2" onClick={() => setQuestions([])}>
+              Play Again
+            </button>
+          </div>
         </div>
       )}
-
       <div className="row bg-dark mt-0 vh-100">
-        <section className="col-sm-8 bg-dark text-light p-3 text-start mx-auto mt-0">
+        <section className="col-sm-8 bg-dark text-light pt-3 px-3 text-start mx-auto mt-0">
           <div className="container mt-0">
             <div className="d-sm-flex align-items-center justify-content-between mt-0">
               <h1>
